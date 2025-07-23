@@ -53,18 +53,19 @@ src/main/resources/application.properties
 
 4️⃣ Run the Application : 
 
-mvn spring-boot:run
+mvn spring-boot: run
 
 📌 Application runs on :
 http://localhost:8080
 
 ## 🔷 API Endpoints
-Method	  Endpoint                        	Description
-- POST	  /api/leads	                   Register a new lead
-- POST	  /api/crm/convert?leadId=1 	   Convert a lead to customer
-- GET	    /api/customers/search?email=...	Search customer by email
-- GET	    /api/leads	                    Get all leads
-- GET   	/api/customers	                Get all customers
+
+Method  |  Endpoint                       |    	Description
+ POST	  | /api/leads	                    | Register a new lead
+ POST	  | /api/crm/convert?leadId=1 	    | Convert a lead to customer
+ GET	  | /api/customers/search?email=.. .|	Search customer by email
+ GET	  | /api/leads	                    |Get all leads
+ GET    | /api/customers	                | Get all customers
 
 ## 🔷 Frontend
 A lightweight HTML + JavaScript page is included at:
