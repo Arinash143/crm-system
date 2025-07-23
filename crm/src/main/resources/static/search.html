@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CRM System</title>
+</head>
+<body>
+
+<h2>CRM System</h2>
+
+<div>
+    <h3>Create Lead</h3>
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
+    <button onclick="createLead()">Create Lead</button>
+</div>
+
+<br>
+
+<div>
+    <h3>Convert Lead to Customer</h3>
+    <input type="number" id="leadId" placeholder="Lead ID">
+    <button onclick="convertLead()">Convert Lead</button>
+</div>
+
+<br>
+
+<div>
+    <h3>Search Customer by Email</h3>
+    <input type="email" id="searchEmail" placeholder="Email">
+    <button onclick="searchCustomer()">Search</button>
+    <div id="searchResult"></div>
+</div>
+
+<script>
+function createLead() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+
+    fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert('Lead created with ID: ' + data.id);
+        document.getElementById('leadId').value = data.id; // set for convert
+    });
+}
+
+function convertLead() {
+    const leadId = document.getElementById('leadId').value;
+
+    fetch('/api/leads/convertLead/' + leadId, {
+        method: 'POST'
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert('Lead converted to Customer: ' + data.name);
+    });
+}
+
+function searchCustomer() {
+    const email = document.getElementById('searchEmail').value;
+
+    fetch('/api/customers/search?email=' + encodeURIComponent(email))
+    .then(res => {
+        if (!res.ok) throw new Error('Customer not found');
+        return res.json();
+    })
+    .then(data => {
+        document.getElementById('searchResult').innerText =
+            `Customer: ${data.name}, Email: ${data.email}, Phone: ${data.phone}, Status: ${data.status}`;
+    })
+    .catch(() => {
+        document.getElementById('searchResult').innerText = 'Customer not found';
+    });
+}
+</script>
+
+</body>
+</html>
+
