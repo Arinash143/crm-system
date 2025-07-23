@@ -60,7 +60,7 @@ http://localhost:8080
 
 ## 🔷 API Endpoints
 
-[Method] |  [Endpoint]                         	[Description]
+[Method] |  [Endpoint]            |             	[Description]
 - POST	 | /api/leads	                     ( Register a new lead )
 - POST	 | /api/crm/convert?leadId=1 	     ( Convert a lead to customer )
 - GET	   | /api/customers/search?email=.. .(	Search customer by email )
